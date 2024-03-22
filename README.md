@@ -7,5 +7,7 @@
 ## Test it/ use it yourself
 
 ## Python
+- writing a Script to fill a .txt file with random numbers
+- also writing a checker to check if everything is sorted or not
 
 ## C
