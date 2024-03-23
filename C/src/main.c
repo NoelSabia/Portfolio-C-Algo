@@ -6,7 +6,7 @@ void	err_message(char *str)
 	printf("Error: %s\n", str);
 }
 
-int main()
+int main(int argc, char *argv[])
 {
 	int		err;
 	int		fd;
@@ -14,6 +14,11 @@ int main()
 	char	*buffer;
 	s_algo	*algo;
 
+	if (argc < 1)
+	{
+		err_message("Wrong number of arguments.");
+		return (0);
+	}
 	fd = open("/workspaces/C-Algo/textfiles/nums.txt", O_RDONLY);
 	if (fd == -1)
 	{
@@ -45,6 +50,7 @@ int main()
 	printf("buffer: %s\n", buffer);
 	algo = (s_algo *)malloc(sizeof(s_algo));
 	parsing(algo, buffer); //TODO: Check if the fd is always closed if exited
+	
 	free(buffer);
 	close(fd);
 	return (0);

@@ -24,6 +24,8 @@ typedef struct t_algo
 	int					threads;
 }	s_algo;
 
+
+
 //Functions
 void	err_message(char *str);
 void	parsing(s_algo *algo, char *buffer);
