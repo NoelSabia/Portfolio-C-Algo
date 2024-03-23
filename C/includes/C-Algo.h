@@ -20,6 +20,7 @@
 typedef struct t_algo
 {
 	long long int		**home_arr;
+	int					home_arr_len;
 	int					fd;
 	int					threads;
 }	s_algo;

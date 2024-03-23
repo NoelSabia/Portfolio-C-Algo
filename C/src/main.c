@@ -50,7 +50,6 @@ int main(int argc, char *argv[])
 	printf("buffer: %s\n", buffer);
 	algo = (s_algo *)malloc(sizeof(s_algo));
 	parsing(algo, buffer); //TODO: Check if the fd is always closed if exited
-	
 	free(buffer);
 	close(fd);
 	return (0);

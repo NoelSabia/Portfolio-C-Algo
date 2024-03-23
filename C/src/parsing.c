@@ -70,6 +70,7 @@ void	parsing(s_algo *algo, char *buffer)
 		i++;
 	}
 	algo->home_arr[arr_position] = NULL;
+	algo->home_arr_len = arr_position;
 	if (wrong_sign >= 1)
 	{
 		err_message("Unallowed signs found. Stop process.\nError: Use format: <space><number><comma>");
