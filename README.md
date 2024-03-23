@@ -13,3 +13,7 @@
 
 ## C
 Using: Merge Sort
+
+Docker:
+https://docs.docker.com/desktop/install/ubuntu/
+https://www.youtube.com/watch?v=5vbCqChnlQc
