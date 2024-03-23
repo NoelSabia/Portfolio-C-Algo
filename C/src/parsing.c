@@ -7,7 +7,7 @@ void	put_into_home_arr(s_algo *algo, char *temp)
 	long long int			num;
 
 	num = atoi(temp);
-	algo->home_arr[arr_position] = malloc(sizeof(num));
+	algo->home_arr[arr_position] = malloc(sizeof(long long int));
 	algo->home_arr[arr_position] = (long long int*)num;
 	arr_position++;
 }

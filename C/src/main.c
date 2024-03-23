@@ -45,8 +45,6 @@ int main()
 	printf("buffer: %s\n", buffer);
 	algo = (s_algo *)malloc(sizeof(s_algo));
 	parsing(algo, buffer); //TODO: Check if the fd is always closed if exited
-	for (int k = 0; algo->home_arr[k]; k++)
-		printf("num: %d\n", algo->home_arr[k]);
 	free(buffer);
 	close(fd);
 	return (0);
