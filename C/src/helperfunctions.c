@@ -1,11 +1,11 @@
 #include "../includes/C-Algo.h"
 
-void	freeing(int **home_arr)
+void	freeing(s_algo *algo)
 {
 	int	i;
 
 	i = -1;
-	while (home_arr[++i])
-		free(home_arr[i]);
-	free(home_arr);
+	while (algo->home_arr[++i])
+		free(algo->home_arr[i]);
+	free(algo->home_arr);
 }

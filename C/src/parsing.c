@@ -23,7 +23,7 @@ void	parsing(s_algo *algo, char *buffer)
 	i = 0;
 	wrong_sign = 0;
 	temp_size = 0;
-	algo->home_arr = (long long int **)malloc(sizeof(long long int *) * 2);
+	algo->home_arr = malloc(sizeof(long long int *) * 2);
 	temp = (char *)malloc(sizeof(char) * 2);
 	while (buffer[i] && buffer[i] == ' ')
 		i++;

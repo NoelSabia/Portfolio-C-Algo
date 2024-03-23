@@ -30,5 +30,8 @@ typedef struct t_algo
 //Functions
 void	err_message(char *str);
 void	parsing(s_algo *algo, char *buffer);
+void	*merge_sort(void *array);
+void	threads(s_algo *algo, int threads);
+void	freeing(s_algo *algo);
 
 #endif
