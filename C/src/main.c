@@ -32,7 +32,7 @@ int main()
 	i = -1;
 	while ((err = read(fd, &buffer[++i], 1)) != 0)
 	{
-		buffer = realloc(buffer, 1);
+		buffer = realloc(buffer, i + 2);
 		if (err == -1)
 		{
 			err_message("The function read() failed.");
@@ -42,6 +42,7 @@ int main()
 	}
 	buffer[i] = '\0';
 
+	printf("buffer: %s\n", buffer);
 	algo = (s_algo *)malloc(sizeof(s_algo));
 	parsing(algo, buffer); //TODO: Check if the fd is always closed if exited
 	for (int k = 0; algo->home_arr[k]; k++)

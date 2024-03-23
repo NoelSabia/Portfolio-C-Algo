@@ -8,7 +8,8 @@ void	put_into_home_arr(s_algo *algo, char *temp)
 
 	num = atoi(temp);
 	algo->home_arr[arr_position] = malloc(sizeof(num));
-	algo->home_arr[arr_position++] = (long long int*)num;
+	algo->home_arr[arr_position] = (long long int*)num;
+	arr_position++;
 }
 
 void	parsing(s_algo *algo, char *buffer)
@@ -22,7 +23,7 @@ void	parsing(s_algo *algo, char *buffer)
 	i = 0;
 	wrong_sign = 0;
 	temp_size = 0;
-	algo->home_arr = (long long int **)malloc(sizeof(long long int *) * 1 + 1);
+	algo->home_arr = (long long int **)malloc(sizeof(long long int *) * 2);
 	temp = (char *)malloc(sizeof(char) * 2);
 	while (buffer[i] && buffer[i] == ' ')
 		i++;
@@ -55,6 +56,11 @@ void	parsing(s_algo *algo, char *buffer)
 			}
 			temp[j] = '\0';
 			put_into_home_arr(algo, temp);
+		}
+		else if (buffer[i] == '\n')
+		{
+			i++;
+			continue ;
 		}
 		else
 		{
