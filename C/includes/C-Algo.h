@@ -21,8 +21,9 @@
 // Structs
 typedef struct t_algo
 {
-	char	**home_arr;
-	int		fd;
+	long long int		**home_arr;
+	int					fd;
+	int					threads;
 }	s_algo;
 
 //Functions
