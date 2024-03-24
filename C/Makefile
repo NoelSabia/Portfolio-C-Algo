@@ -1,6 +1,6 @@
 NAME	:= C-Algo
 
-CFLAGS	:= -Wextra -Wall #-Werror
+CFLAGS	:= -Wextra -Wall #Werror
 
 HEADERS	:= -I ./include
 

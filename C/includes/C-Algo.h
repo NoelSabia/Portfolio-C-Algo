@@ -23,6 +23,7 @@ typedef struct t_algo
 	int					home_arr_len;
 	int					fd;
 	int					threads;
+	int					division;
 }	s_algo;
 
 

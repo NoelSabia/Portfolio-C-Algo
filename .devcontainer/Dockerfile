@@ -15,8 +15,8 @@ WORKDIR /
 
 COPY . .
 
-# Compile the C code
-RUN gcc -o /app/c_code/main /app/c_code/main.c
+# Download Valgrind for C/C++
+RUN apt-get install -y valgrind
 
 # Install Python dependencies
 RUN pip3 install -r

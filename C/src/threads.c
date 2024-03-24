@@ -2,27 +2,29 @@
 
 long long int	*arr_for_threads(s_algo *algo)
 {
-	const int	division = algo->home_arr_len / algo->threads;
-	static int	start = 0;
+	int		division = algo->home_arr_len / algo->threads;
+	static int		start = 0;
+	static int		end;
 	long long int	*temp_arr;
 	int				i;
 
 	i = 0;
+	end = division;
+	algo->division = division;
 	temp_arr = malloc(sizeof(long long int) * division + 1);
 	if (!temp_arr)
 	{
 		err_message("Allocation of an important array failed.");
 		return (NULL);
 	}
-	while(start <= division)
+	while(start < division)
 	{
 		temp_arr[i] = *algo->home_arr[start];
-		exit(0);
 		i++;
 		start++;
 	}
-	temp_arr[i] = 0;
 	start += division;
+	end += division;
 	return (temp_arr);
 }
 
@@ -36,8 +38,7 @@ void	threads(s_algo *algo, int threads)
 	for (i = 0; i < threads; i++)
 	{
 		temp_arr = arr_for_threads(algo);
-		for (int k = 0; temp_arr[k]; k++)
-			printf("temp_arr[k]: %lld\n", temp_arr[k]);
+		exit(0);
 		result = pthread_create(&thread_id[i], NULL, merge_sort, (void *)temp_arr);
 		if (result != 0)
 		{

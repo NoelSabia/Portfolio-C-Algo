@@ -2,13 +2,18 @@
 
 static int	arr_position = 0;
 
-void	put_into_home_arr(s_algo *algo, char *temp)
+void put_into_home_arr(s_algo *algo, char *temp)
 {
-	long long int			num;
-
-	num = atoi(temp);
+	long long int num = atoll(temp);
 	algo->home_arr[arr_position] = malloc(sizeof(long long int));
-	algo->home_arr[arr_position] = (long long int*)num;
+	if (algo->home_arr[arr_position] == NULL)
+	{
+		err_message("An allocation of an array failed. Check your available storage.");
+		return;
+	}
+	printf("num:%lld\n", num);
+	*algo->home_arr[arr_position] = num;
+	printf("home_arr: %lld\n", *algo->home_arr[arr_position]);
 	arr_position++;
 }
 
@@ -23,7 +28,7 @@ void	parsing(s_algo *algo, char *buffer)
 	i = 0;
 	wrong_sign = 0;
 	temp_size = 0;
-	algo->home_arr = malloc(sizeof(long long int *) * 2);
+	algo->home_arr = malloc(sizeof(long long int *) * 10000); //TODO: instead of static try dynamic
 	temp = (char *)malloc(sizeof(char) * 2);
 	while (buffer[i] && buffer[i] == ' ')
 		i++;
