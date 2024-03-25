@@ -2,6 +2,6 @@
 
 void	*merge_sort(void *array)
 {
-	int	*arr = (int *)array;
+	(void)array;
 	return NULL;
 }

@@ -1,4 +1,5 @@
 #include "../includes/C-Algo.h"
+#include <string.h>
 
 static int	arr_position = 0;
 
@@ -56,9 +57,9 @@ void	parsing(s_algo *algo, char *buffer)
 					}
 					temp = new_temp;
 				}
-				temp[j] = '\0';
-				put_into_home_arr(algo, temp); //TODO: is getting called to often result: home_arr_len is huge af
 			}
+			temp[j] = '\0';
+			put_into_home_arr(algo, temp);
 		}
 		else if (buffer[i] == '\n')
 		{
@@ -74,7 +75,6 @@ void	parsing(s_algo *algo, char *buffer)
 	}
 	algo->home_arr[arr_position] = NULL;
 	algo->home_arr_len = arr_position;
-	printf("len0: %d\n", algo->home_arr_len);
 	if (wrong_sign >= 1)
 	{
 		err_message("Unallowed signs found. Stop process.\nError: Use format: <space><number><comma>");
