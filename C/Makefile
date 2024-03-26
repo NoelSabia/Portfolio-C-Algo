@@ -1,12 +1,15 @@
 NAME	:= C-Algo
 
-CFLAGS	:= -Wextra -Wall #-Werror
+CFLAGS	:= -Wextra -Wall #Werror
 
 HEADERS	:= -I ./include
 
 SRCDIR := ./src/
 SRCS	:=  $(SRCDIR)main.c \
-			$(SRCDIR)parsing.c
+			$(SRCDIR)helperfunctions.c \
+			$(SRCDIR)merge_sort.c \
+			$(SRCDIR)parsing.c \
+			$(SRCDIR)threads.c
 
 OBJDIR := ./obj/
 OBJS	:= $(SRCS:%.c=$(OBJDIR)%.o)

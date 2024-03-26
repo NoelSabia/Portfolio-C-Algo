@@ -6,7 +6,7 @@ void	err_message(char *str)
 	printf("Error: %s\n", str);
 }
 
-int main()
+int main(int argc, char *argv[])
 {
 	int		err;
 	int		fd;
@@ -14,6 +14,11 @@ int main()
 	char	*buffer;
 	s_algo	*algo;
 
+	if (argc < 2)
+	{
+		err_message("Wrong number of arguments.\nError: Need to know how many Threads are available.");
+		return (0);
+	}
 	fd = open("/workspaces/C-Algo/textfiles/nums.txt", O_RDONLY);
 	if (fd == -1)
 	{
@@ -42,10 +47,18 @@ int main()
 	}
 	buffer[i] = '\0';
 
-	printf("buffer: %s\n", buffer);
 	algo = (s_algo *)malloc(sizeof(s_algo));
-	parsing(algo, buffer); //TODO: Check if the fd is always closed if exited
+	if (parsing(algo, buffer) == FAILURE)
+	{
+		free(buffer);
+		close(fd);
+		freeing(algo);
+		exit(0);
+	}
+	algo->threads = atoll(argv[1]);
+	threads(algo, algo->threads);
 	free(buffer);
 	close(fd);
+	freeing(algo);
 	return (0);
 }
