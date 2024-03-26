@@ -3,7 +3,7 @@
 
 static int	arr_position = 0;
 
-void put_into_home_arr(s_algo *algo, char *temp)
+void	put_into_home_arr(s_algo *algo, char *temp)
 {
 	long long int num = atoll(temp);
 	algo->home_arr[arr_position] = malloc(sizeof(long long int));
@@ -16,7 +16,7 @@ void put_into_home_arr(s_algo *algo, char *temp)
 	arr_position++;
 }
 
-void	parsing(s_algo *algo, char *buffer)
+int	parsing(s_algo *algo, char *buffer)
 {
 	int		i;
 	int		j;
@@ -29,8 +29,6 @@ void	parsing(s_algo *algo, char *buffer)
 	temp_size = 0;
 	algo->home_arr = malloc(sizeof(long long int *) * 10000); //TODO: instead of static try dynamic
 	temp = (char *)malloc(sizeof(char) * 2);
-	while (buffer[i] && buffer[i] == ' ')
-		i++;
 	while (buffer[i])
 	{
 		if (buffer[i] == ' ')
@@ -53,7 +51,7 @@ void	parsing(s_algo *algo, char *buffer)
 					if (new_temp == NULL)
 					{
 						free(temp);
-						return ;
+						return (FAILURE);
 					}
 					temp = new_temp;
 				}
@@ -77,9 +75,9 @@ void	parsing(s_algo *algo, char *buffer)
 	algo->home_arr_len = arr_position;
 	if (wrong_sign >= 1)
 	{
-		err_message("Unallowed signs found. Stop process.\nError: Use format: <space><number><comma>");
-		// free(temp);
-		return ;
+		printf("Error: Unallowed signs found:'%c'.", buffer[i]);
+		err_message("Use format: <space><number><comma> (also for the last number!)");
+		return (FAILURE);
 	}
-	// free(temp); //TODO: idk irgendwie ein bisschen komisch, dass temp schon oben gefreed wird
+	return (SUCCESS);
 }

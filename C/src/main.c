@@ -48,7 +48,13 @@ int main(int argc, char *argv[])
 	buffer[i] = '\0';
 
 	algo = (s_algo *)malloc(sizeof(s_algo));
-	parsing(algo, buffer); //TODO: Check if the fd is always closed if end
+	if (parsing(algo, buffer) == FAILURE)
+	{
+		free(buffer);
+		close(fd);
+		freeing(algo);
+		exit(0);
+	}
 	algo->threads = atoll(argv[1]);
 	threads(algo, algo->threads);
 	free(buffer);

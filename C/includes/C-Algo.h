@@ -16,6 +16,10 @@
 # include <stdbool.h>
 # include <pthread.h>
 
+//defines
+#define SUCCESS 1
+#define FAILURE 0
+
 // Structs
 typedef struct t_algo
 {
@@ -30,7 +34,7 @@ typedef struct t_algo
 
 //Functions
 void	err_message(char *str);
-void	parsing(s_algo *algo, char *buffer);
+int		parsing(s_algo *algo, char *buffer);
 void	*merge_sort(void *array);
 void	threads(s_algo *algo, int threads);
 void	freeing(s_algo *algo);

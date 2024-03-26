@@ -21,24 +21,26 @@ long long int *arr_for_threads(s_algo *algo)
 	}
 	if (repetition < algo->threads)
 	{
-		while(start < end)
+		while(start <= end)
 		{
 			temp_arr[i] = *algo->home_arr[start];
 			i++;
 			start++;
 		}
+		// temp_arr[i] = 69420;
 		end += division;
 	}
 	else
 	{
-		printf("start:%d\n", start);
-		printf("home_arr_len: %d\n", algo->home_arr_len);
+		// printf("len: %d\n", algo->home_arr_len);
 		while(start < algo->home_arr_len)
 		{
+			// printf("beg: %d\n", start);
 			temp_arr[i] = *algo->home_arr[start];
 			i++;
 			start++;
 		}
+		// temp_arr[i] = 69420;
 	}
 	repetition++;
 	return (temp_arr);
@@ -54,8 +56,8 @@ void	threads(s_algo *algo, int threads)
 	for (i = 0; i < threads; i++)
 	{
 		temp_arr = arr_for_threads(algo);
-		for (int k = 0; k < algo->division; k++)
-			printf("there: %lld\n", temp_arr[k]);
+		// for (int k = 0; temp_arr[k] != 69420 ; k++)
+		// 	printf("there: %lld\n", temp_arr[k]);
 		result = pthread_create(&thread_id[i], NULL, merge_sort, (void *)temp_arr);
 		if (result != 0)
 		{
