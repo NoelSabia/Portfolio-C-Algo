@@ -1,1 +1,2 @@
-print("have fun learning")
+def hello()
+	print("HELLO");
