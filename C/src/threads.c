@@ -1,5 +1,7 @@
 #include "../includes/C-Algo.h"
 
+static int temp_arr_len;
+
 long long int *arr_for_threads(s_algo *algo)
 {
 	static int start = 0;
@@ -12,8 +14,9 @@ long long int *arr_for_threads(s_algo *algo)
 	if (start == 0)
 		end = division;
 	algo->division = division;
-	temp_arr = malloc(sizeof(long long int) * (division + 1));
+	temp_arr = malloc(sizeof(long long int) * (division + 10));
 	i = 0;
+	temp_arr_len = 0;
 	if (!temp_arr)
 	{
 		err_message("Allocation of an important array failed.");
@@ -27,27 +30,25 @@ long long int *arr_for_threads(s_algo *algo)
 			i++;
 			start++;
 		}
-		// temp_arr[i] = 69420;
 		end += division;
 	}
 	else
 	{
-		// printf("len: %d\n", algo->home_arr_len);
 		while(start < algo->home_arr_len)
 		{
-			// printf("beg: %d\n", start);
 			temp_arr[i] = *algo->home_arr[start];
 			i++;
 			start++;
 		}
-		// temp_arr[i] = 69420;
 	}
 	repetition++;
+	temp_arr_len = start;
 	return (temp_arr);
 }
 
 void	threads(s_algo *algo, int threads)
 {
+	s_threadinfo	*threadinfo;
 	pthread_t		thread_id[threads];
 	int				i;
 	int				result;
@@ -56,8 +57,10 @@ void	threads(s_algo *algo, int threads)
 	for (i = 0; i < threads; i++)
 	{
 		temp_arr = arr_for_threads(algo);
-		// for (int k = 0; temp_arr[k] != 69420 ; k++)
-		// 	printf("there: %lld\n", temp_arr[k]);
+		threadinfo = malloc(sizeof(s_threadinfo));
+		threadinfo->arr = malloc(sizeof(long long int) * temp_arr_len);
+		memcpy(threadinfo->arr, temp_arr, sizeof(long long int) * temp_arr_len);
+		threadinfo->len = temp_arr_len;
 		result = pthread_create(&thread_id[i], NULL, merge_sort, (void *)temp_arr);
 		if (result != 0)
 		{
@@ -70,6 +73,7 @@ void	threads(s_algo *algo, int threads)
 	for (i = 0; i < threads; i++)
 	{
 		result = pthread_join(thread_id[i], NULL);
+		//TODO: Dont forget to free threadinfo
 		printf("joined\n");
 		if (result != 0)
 		{

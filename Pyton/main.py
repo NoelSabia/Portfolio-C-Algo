@@ -31,7 +31,7 @@ def main():
 		return
 	
 	nums = []
-	print("Enter the numbers one by one:")
+	print("Enter the numbers one by one:<space><number><comma>")
 	for i in range(num_count):
 		num = get_integer_input(f"Enter number {i + 1}: ")
 		if not allow_rep_num and num in nums:

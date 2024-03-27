@@ -15,8 +15,9 @@ WORKDIR /
 
 COPY . .
 
-# Download Valgrind for C/C++
+# Download Valgrind for C/C++ && clang
 RUN apt-get install -y valgrind
+RUN apt-get update && apt-get install -y clang
 
 # Install Python dependencies
 RUN pip3 install -r

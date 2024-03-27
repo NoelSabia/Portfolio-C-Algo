@@ -25,7 +25,8 @@
 				"GitHub.copilot",
 				"ms-azuretools.vscode-docker",
 				"ms-vscode-remote.remote-containers",
-				"Gruntfuggly.todo-tree"
+				"Gruntfuggly.todo-tree",
+				"lldm.clang"
 			]
 		}
 	},

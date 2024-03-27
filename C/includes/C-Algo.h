@@ -30,12 +30,18 @@ typedef struct t_algo
 	int					division;
 }	s_algo;
 
+typedef struct t_threadinfo
+{
+	long long int	*arr;
+	int				len;
+}	s_threadinfo;
+
 
 
 //Functions
 void	err_message(char *str);
 int		parsing(s_algo *algo, char *buffer);
-void	*merge_sort(void *array);
+void	*merge_sort(void *threadinfo);
 void	threads(s_algo *algo, int threads);
 void	freeing(s_algo *algo);
 
