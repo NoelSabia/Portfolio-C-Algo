@@ -76,7 +76,7 @@ int	parsing(s_algo *algo, char *buffer)
 	if (wrong_sign >= 1)
 	{
 		printf("Error: Unallowed signs found:'%c'.", buffer[i]);
-		err_message("Use format: <space><number><comma> (also for the last number!)");
+		err_message("Use format: <space><number><comma> (comma also for the last number!)");
 		return (FAILURE);
 	}
 	return (SUCCESS);

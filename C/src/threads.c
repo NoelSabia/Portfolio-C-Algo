@@ -61,7 +61,11 @@ void	threads(s_algo *algo, int threads)
 		threadinfo->arr = malloc(sizeof(long long int) * temp_arr_len);
 		memcpy(threadinfo->arr, temp_arr, sizeof(long long int) * temp_arr_len);
 		threadinfo->len = temp_arr_len;
-		result = pthread_create(&thread_id[i], NULL, merge_sort, (void *)temp_arr);
+		printf("\n");
+		for (int k = 0; k < threadinfo->len; k++)
+			printf("arr[%d]: %lld\n", k, threadinfo->arr[k]);
+		printf("\n");
+		result = pthread_create(&thread_id[i], NULL, merge_sort_main, (void *)threadinfo);
 		if (result != 0)
 		{
 			err_message("Thread creation failed!");
@@ -69,6 +73,7 @@ void	threads(s_algo *algo, int threads)
 			return ;
 		}
 		free(temp_arr);
+		usleep(10);//TODO: Dont forget to take that away
 	}
 	for (i = 0; i < threads; i++)
 	{

@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 		err_message("Wrong number of arguments.\nError: Need to know how many Threads are available.");
 		return (0);
 	}
-	fd = open("/workspaces/C-Algo/textfiles/nums.txt", O_RDONLY);
+	fd = open("../textfiles/nums.txt", O_RDONLY);
 	if (fd == -1)
 	{
 		err_message("Failed to open the File.");

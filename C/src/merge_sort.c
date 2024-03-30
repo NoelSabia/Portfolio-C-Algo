@@ -1,42 +1,81 @@
 #include "../includes/C-Algo.h"
 
-long long int	*split_arr(long long int *dest, long long int *src, int start, int end)
+long long int *merge(long long int *arr, size_t left, size_t middle, size_t right)
 {
-	while (start <= end)
+	int i, j, k;
+    int n1 = middle - left + 1;
+    int n2 = right - middle;
+    int L[n1], R[n2];
+
+    for (i = 0; i < n1; i++)
+        L[i] = arr[left + i];
+    for (j = 0; j < n2; j++)
+        R[j] = arr[middle + 1 + j];
+
+    i = 0;
+    j = 0;
+    k = left;
+    while (i < n1 && j < n2)
 	{
-		dest[start] = src[start];
-		start++;
-	}
-	return (dest);
+        if (L[i] <= R[j])
+		{
+            arr[k] = L[i];
+            i++;
+        }
+        else
+		{
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+    while (i < n1)
+	{
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+    while (j < n2)
+	{
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+	return (arr);
 }
 
-void	*merge_sort(void *array)
+long long int *mergeSort(long long int *arr, size_t left, size_t right, size_t len)
 {
-	s_threadinfo *threadinfo;
-	float	middle;
-	long long int *temp_arr1;
-	long long int *temp_arr2;
-	int		*solved_arr;
+	
+	long long int *solved;
+	size_t middle = left + (right - left) / 2;
+	
 
-	if (threadinfo->len == 1)
-		return ((void *)array);
-	else
+	if (left < right)
 	{
-		middle = (float)threadinfo->len / 2;
-		float remainder = middle - (int)middle;
-		if (remainder == 0.5)
-		{
-			middle += 0.5;
-			temp_arr1 = split_arr(temp_arr1, array, 0, middle);
-			temp_arr2 = split_arr(temp_arr2, array, middle + 1, threadinfo->len);
-		}
-		else
-		{
-			temp_arr1 = split_arr(temp_arr1, array, 0, middle);
-			temp_arr2 = split_arr(temp_arr2, array, middle + 1, threadinfo->len);
-		}
-		long long int *left_arr = merge_sort((void *)temp_arr1);
-		long long int *right_arr = merge_sort((void *)temp_arr2);
+		mergeSort(arr, left, middle, len);
+		mergeSort(arr, middle + 1, right, len);
+		solved = merge(arr, left, middle, right);
 	}
-	return ((void *)solved_arr);
+	if (left + right == len)
+		return (solved);
+	return (NULL);
+}
+
+void	*merge_sort_main(void *threadinfo)
+{
+	s_threadinfo	*thread = threadinfo;
+	long long int	*arr = thread->arr;
+	long long int	*solved;
+
+	// printf("\n");
+	// for (int j = 0; j < thread->len; j++)
+	// 	printf("before[%d]: %lld\n", j, thread->arr[j]);
+	// printf("\n");
+	solved = mergeSort(arr, 0, thread->len, thread->len);
+	// printf("\n");
+	// for (int k = 0; k < thread->len; k++)
+	// 	printf("solved[%d]: %lld\n", k, solved[k]);
+	// printf("\n");
+	return ((void *)solved);
 }
