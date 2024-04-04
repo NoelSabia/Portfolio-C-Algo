@@ -19,8 +19,8 @@ COPY . .
 RUN apt-get install -y valgrind
 
 # Update the package lists and install clang
-RUN apt update 
-RUN apt install clang
+RUN sudo apt update 
+RUN sudo apt install clang
 
 # Install Python dependencies
 RUN pip3 install -r requirements.txt

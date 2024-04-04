@@ -34,6 +34,9 @@ typedef struct t_threadinfo
 {
 	long long int	*arr;
 	long long int	len;
+	long long int	result_index;
+	struct t_threadinfo	*next;
+	struct t_threadinfo	*prev;
 }	s_threadinfo;
 
 

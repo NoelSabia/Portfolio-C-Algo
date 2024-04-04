@@ -57,6 +57,7 @@ void put_into_2d_array(s_algo *algo, s_threadinfo *threadinfo, long long int *so
 void	threads(s_algo *algo, int threads)
 {
 	s_threadinfo	*threadinfo;
+	s_threadinfo	*prev_threadinfo = NULL;
 	pthread_t		thread_id[threads];
 	int				i;
 	int				result;
@@ -66,11 +67,23 @@ void	threads(s_algo *algo, int threads)
 
 	for (i = 0; i < threads; i++)
 	{
+		//fill up the temp_arr in parts of the original arr for multitherading
 		temp_arr = arr_for_threads(algo, &start, &end);
-		threadinfo = malloc(sizeof(s_threadinfo));
+
+		//allocate memory
+		s_threadinfo *threadinfo = malloc(sizeof(s_threadinfo));
 		threadinfo->arr = malloc(sizeof(long long int) * temp_arr_len);
+
+		//initalize the struct and put the values in there
 		memcpy(threadinfo->arr, temp_arr, sizeof(long long int) * temp_arr_len);
 		threadinfo->len = temp_arr_len;
+		threadinfo->result_index = 0;
+		threadinfo->prev = prev_threadinfo;
+		threadinfo->next = NULL;
+		if (prev_threadinfo != NULL)
+			prev_threadinfo->next = threadinfo;
+		
+		//create threads with errorcheck
 		result = pthread_create(&thread_id[i], NULL, merge_sort_main, (void *)threadinfo);
 		if (result != 0)
 		{
@@ -78,7 +91,10 @@ void	threads(s_algo *algo, int threads)
 			free(temp_arr);
 			return ;
 		}
+
+		//free memory you dont need anymore and fill up the struct
 		free(temp_arr);
+		prev_threadinfo = threadinfo;
 	}
 	for (i = 0; i < threads; i++)
 	{
@@ -92,5 +108,4 @@ void	threads(s_algo *algo, int threads)
 		long long int *sorted_arr = (long long int *)thread_result;
 		put_into_2d_array(algo, threadinfo, sorted_arr, i);
 	}
-	//exit(0); TODO: only the exit() stops you from having this error: free(): invalid pointer Aborted
 }
