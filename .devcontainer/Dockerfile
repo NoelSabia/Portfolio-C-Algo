@@ -15,12 +15,15 @@ WORKDIR /
 
 COPY . .
 
-# Download Valgrind for C/C++ && clang
+# Download Valgrind for C/C++
 RUN apt-get install -y valgrind
-RUN apt-get update && apt-get install -y clang
+
+# Update the package lists and install clang
+RUN apt update 
+RUN apt install clang
 
 # Install Python dependencies
-RUN pip3 install -r
+RUN pip3 install -r requirements.txt
 
 # Command to run when the container starts
 CMD ["bash"]

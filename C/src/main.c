@@ -57,8 +57,9 @@ int main(int argc, char *argv[])
 	}
 	algo->threads = atoll(argv[1]);
 	threads(algo, algo->threads);
-	free(buffer);
+	combine_and_resultfile(algo);
+	// free(buffer);
 	close(fd);
-	freeing(algo);
+	// freeing(algo);
 	return (0);
 }
