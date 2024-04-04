@@ -8,18 +8,18 @@ void	err_message(char *str)
 
 int main(int argc, char *argv[])
 {
-	int		err;
-	int		fd;
-	int		i;
-	char	*buffer;
-	s_algo	*algo;
+	int				err;
+	int				fd;
+	int				i;
+	char			*buffer;
+	s_algo			*algo;
 
 	if (argc < 2)
 	{
 		err_message("Wrong number of arguments.\nError: Need to know how many Threads are available.");
 		return (0);
 	}
-	fd = open("../textfiles/nums.txt", O_RDONLY);
+	fd = open("../textfiles/nums.txt", O_RDONLY, 0644);
 	if (fd == -1)
 	{
 		err_message("Failed to open the File.");
@@ -56,8 +56,10 @@ int main(int argc, char *argv[])
 		exit(0);
 	}
 	algo->threads = atoll(argv[1]);
-	threads(algo, algo->threads);
-	combine_and_resultfile(algo);
+	if (algo->threads < 1)
+		err_message("0 threads are not possible please take a number higher or equal to 1");
+	else
+		threads(algo, algo->threads);
 	// free(buffer);
 	close(fd);
 	// freeing(algo);

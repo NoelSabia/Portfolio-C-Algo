@@ -47,8 +47,8 @@ long long int *arr_for_threads(s_algo *algo, int *start, int *end)
 
 void put_into_2d_array(s_algo *algo, s_threadinfo *threadinfo, long long int *sorted_arr, int index)
 {
-	int len = threadinfo->len;
-	for (int i = 0; i <= len; i++)
+	//TODO: segv here
+	for (int i = 0; i <= threadinfo->len; i++)
 	{
 		algo->home_arr[index][i] = sorted_arr[i];
 	}
@@ -56,7 +56,7 @@ void put_into_2d_array(s_algo *algo, s_threadinfo *threadinfo, long long int *so
 
 void	threads(s_algo *algo, int threads)
 {
-	s_threadinfo	*threadinfo;
+	s_threadinfo	*threadinfo = NULL;
 	s_threadinfo	*prev_threadinfo = NULL;
 	pthread_t		thread_id[threads];
 	int				i;
@@ -71,13 +71,13 @@ void	threads(s_algo *algo, int threads)
 		temp_arr = arr_for_threads(algo, &start, &end);
 
 		//allocate memory
-		s_threadinfo *threadinfo = malloc(sizeof(s_threadinfo));
+		threadinfo = malloc(sizeof(s_threadinfo));
 		threadinfo->arr = malloc(sizeof(long long int) * temp_arr_len);
 
 		//initalize the struct and put the values in there
 		memcpy(threadinfo->arr, temp_arr, sizeof(long long int) * temp_arr_len);
 		threadinfo->len = temp_arr_len;
-		threadinfo->result_index = 0;
+		threadinfo->index = 0;
 		threadinfo->prev = prev_threadinfo;
 		threadinfo->next = NULL;
 		if (prev_threadinfo != NULL)
@@ -96,6 +96,8 @@ void	threads(s_algo *algo, int threads)
 		free(temp_arr);
 		prev_threadinfo = threadinfo;
 	}
+	while (prev_threadinfo->prev != NULL)
+		prev_threadinfo = prev_threadinfo->prev;
 	for (i = 0; i < threads; i++)
 	{
 		void *thread_result;
@@ -107,5 +109,7 @@ void	threads(s_algo *algo, int threads)
 		}
 		long long int *sorted_arr = (long long int *)thread_result;
 		put_into_2d_array(algo, threadinfo, sorted_arr, i);
+		threadinfo = threadinfo->next;
 	}
+	combine_and_resultfile(algo, threadinfo);
 }
