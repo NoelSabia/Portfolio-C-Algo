@@ -6,7 +6,6 @@ HEADERS	:= -I ./include
 
 SRCDIR := ./src/
 SRCS	:=  $(SRCDIR)main.c \
-			$(SRCDIR)helperfunctions.c \
 			$(SRCDIR)merge_sort.c \
 			$(SRCDIR)parsing.c \
 			$(SRCDIR)threads.c \

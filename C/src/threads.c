@@ -71,6 +71,11 @@ void	threads(s_algo *algo, int threads)
 		//allocate memory
 		s_threadinfo *threadinfo = malloc(sizeof(s_threadinfo));
 		threadinfo->arr = malloc(sizeof(long long int) * temp_arr_len);
+		if (!threadinfo || !threadinfo->arr)
+		{
+			err_message("Allocation of an important struct failed.");
+			return ;
+		}
 
 		//initialize the struct and put the values in there
 		memcpy(threadinfo->arr, temp_arr, sizeof(long long int) * temp_arr_len);
@@ -93,10 +98,10 @@ void	threads(s_algo *algo, int threads)
 			free(temp_arr);
 			return ;
 		}
-		//free memory you dont need anymore and fill up the struct
+
 		free(temp_arr);
 		prev_threadinfo = threadinfo;
-		usleep(100); //TODO: just for debuggin reasons should be removed
+
 		if (i == threads - 1)
 		{
 			while (threadinfo->prev != NULL)
@@ -120,5 +125,6 @@ void	threads(s_algo *algo, int threads)
 				threadinfo = threadinfo->prev;
 			combine_and_resultfile(algo, threadinfo);
 		}
+
 	}
 }

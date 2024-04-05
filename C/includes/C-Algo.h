@@ -48,6 +48,5 @@ int		parsing(s_algo *algo, char *buffer);
 void	*merge_sort_main(void *threadinfo);
 void	threads(s_algo *algo, int threads);
 void	combine_and_resultfile(s_algo *algo, s_threadinfo *threadinfo);
-void	freeing(s_algo *algo);
 
 #endif

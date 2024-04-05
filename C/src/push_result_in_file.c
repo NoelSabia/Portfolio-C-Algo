@@ -22,7 +22,7 @@ void combine_and_resultfile(s_algo *algo, s_threadinfo *threadinfo)
 				smallest_threadinfo = current_threadinfo;
 			}
 			current_threadinfo = current_threadinfo->next;
-			}
+		}
 
 		// Increment the index of the threadinfo that had the smallest num
 		if (smallest_threadinfo != NULL && smallest_threadinfo->index < smallest_threadinfo->len)

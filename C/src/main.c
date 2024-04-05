@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 	{
 		free(buffer);
 		close(fd);
-		freeing(algo);
+		free(algo->home_arr);
 		exit(0);
 	}
 	algo->threads = atoll(argv[1]);
@@ -60,8 +60,8 @@ int main(int argc, char *argv[])
 		err_message("0 threads are not possible please take a number higher or equal to 1");
 	else
 		threads(algo, algo->threads);
-	// free(buffer);
+	free(buffer);
 	close(fd);
-	// freeing(algo);
+	free(algo->home_arr);
 	return (0);
 }

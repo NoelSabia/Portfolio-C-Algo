@@ -54,6 +54,7 @@ int	parsing(s_algo *algo, char *buffer)
 						return (FAILURE);
 					}
 					temp = new_temp;
+					free(new_temp);
 				}
 			}
 			temp[j] = '\0';
