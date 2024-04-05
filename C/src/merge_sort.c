@@ -1,20 +1,21 @@
 #include "../includes/C-Algo.h"
 
-long long int *merge(long long int *arr, size_t left, size_t middle, size_t right)
+void merge(long long int arr[], int l, int m, int r)
 {
 	int i, j, k;
-	int n1 = middle - left + 1;
-	int n2 = right - middle;
+	int n1 = m - l + 1;
+	int n2 = r - m;
+
 	int L[n1], R[n2];
 
 	for (i = 0; i < n1; i++)
-		L[i] = arr[left + i];
+		L[i] = arr[l + i];
 	for (j = 0; j < n2; j++)
-		R[j] = arr[middle + 1 + j];
+		R[j] = arr[m + 1 + j];
 
 	i = 0;
 	j = 0;
-	k = left;
+	k = l;
 	while (i < n1 && j < n2)
 	{
 		if (L[i] <= R[j])
@@ -29,45 +30,40 @@ long long int *merge(long long int *arr, size_t left, size_t middle, size_t righ
 		}
 		k++;
 	}
+
 	while (i < n1)
 	{
 		arr[k] = L[i];
 		i++;
 		k++;
 	}
+
 	while (j < n2)
 	{
 		arr[k] = R[j];
 		j++;
 		k++;
 	}
-	return (arr);
 }
 
-long long int *mergeSort(long long int *arr, size_t left, size_t right, size_t len)
+void mergeSort(long long int arr[], int l, int r)
 {
-	
-	long long int *solved;
-	size_t middle = left + (right - left) / 2;
-	
-
-	if (left < right)
+	if (l < r)
 	{
-		mergeSort(arr, left, middle, len);
-		mergeSort(arr, middle + 1, right, len);
-		solved = merge(arr, left, middle, right);
+		int m = l + (r - l) / 2;
+
+		mergeSort(arr, l, m);
+		mergeSort(arr, m + 1, r);
+
+		merge(arr, l, m, r);
 	}
-	if (left + right == len)
-		return (solved);
-	return (NULL);
 }
 
 void	*merge_sort_main(void *threadinfo)
 {
 	s_threadinfo	*thread = threadinfo;
 	long long int	*arr = thread->arr;
-	long long int	*solved;
 
-	solved = mergeSort(arr, 0, thread->len, thread->len);
-	return ((void *)solved);
+	mergeSort(arr, 0, thread->len - 1);
+	return ((void *)arr);
 }
