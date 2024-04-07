@@ -27,7 +27,7 @@ int	parsing(s_algo *algo, char *buffer)
 	i = 0;
 	wrong_sign = 0;
 	temp_size = 0;
-	algo->home_arr = malloc(sizeof(long long int *) * 10000); //TODO: instead of static try dynamic
+	algo->home_arr = malloc(sizeof(long long int *) * 100000);
 	temp = (char *)malloc(sizeof(char) * 2);
 	while (buffer[i])
 	{
@@ -72,11 +72,10 @@ int	parsing(s_algo *algo, char *buffer)
 		}
 		i++;
 	}
-	algo->home_arr[arr_position] = NULL;
 	algo->home_arr_len = arr_position;
 	if (wrong_sign >= 1)
 	{
-		printf("Error: Unallowed signs found:'%c'.", buffer[i]);
+		printf("Error: Unallowed signs found:'%c'", buffer[i]);
 		err_message("Use format: <space><number><comma> (comma also for the last number!)");
 		return (FAILURE);
 	}

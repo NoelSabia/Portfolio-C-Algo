@@ -52,7 +52,10 @@ int main(int argc, char *argv[])
 	{
 		free(buffer);
 		close(fd);
+		// for (int k = 0; k <= algo->home_arr_len ; k++)
+		// 	free(algo->home_arr[k]);
 		free(algo->home_arr);
+		free(algo);
 		exit(0);
 	}
 	algo->threads = atoll(argv[1]);
@@ -62,6 +65,9 @@ int main(int argc, char *argv[])
 		threads(algo, algo->threads);
 	free(buffer);
 	close(fd);
+	// for (int k = 0; k <= algo->home_arr_len; k++)
+	// 	free(algo->home_arr[k]);
 	free(algo->home_arr);
+	free(algo);
 	return (0);
 }

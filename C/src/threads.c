@@ -109,8 +109,7 @@ void	threads(s_algo *algo, int threads)
 			for (i = 0; i < threads; i++)
 			{
 				void *thread_result;
-				result = pthread_join(thread_id[i], &thread_result); //TODO: thread_result has sometimes a zero which is wrong
-				//the problem is that an empty array has a 0 stored in there and is used in the mergesort
+				result = pthread_join(thread_id[i], &thread_result);
 				if (result != 0)
 				{
 					err_message("Thread join failed!");
@@ -124,7 +123,14 @@ void	threads(s_algo *algo, int threads)
 			while (threadinfo->prev != NULL)
 				threadinfo = threadinfo->prev;
 			combine_and_resultfile(algo, threadinfo);
+			while (threadinfo->next != NULL)
+				threadinfo = threadinfo->next;
+			while (threadinfo->prev != NULL)
+			{
+				free(threadinfo->arr);
+				free(threadinfo);
+				threadinfo = threadinfo->prev;
+			}
 		}
-
 	}
 }
